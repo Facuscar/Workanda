@@ -11,6 +11,10 @@ class LoginController{
 
     public static function login(Router $router){
 
+        if(isset($_SESSION['login'])){
+            header('Location: /dashboard');
+        }
+
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             //Buscamos en la base de datos un usuario con el correo electrónico que se encuentra en post
@@ -24,7 +28,8 @@ class LoginController{
             
             //Verificamos si las contraseñas coinciden
         } else if(password_verify($_POST['password'], $usuario->password)){
-            
+
+            session_start();
             $_SESSION['id']  = $usuario->id;
             $_SESSION['nombre']  = $usuario->nombre;
             $_SESSION['email']  = $usuario->email;
@@ -35,7 +40,7 @@ class LoginController{
 
             $alertas = Usuario::getAlertas();
             $respuesta = [
-                'alertas' => $alertas
+                'alertas' => $alertas,
             ];
             echo json_encode($respuesta);
             return;

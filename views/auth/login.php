@@ -1,4 +1,5 @@
 <div class="login">
+    <div class="alertas-container"></div>
     <div class="contenedor">
         <form action="/" method="POST" class="formulario">
             <div class="campo">

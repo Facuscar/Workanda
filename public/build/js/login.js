@@ -41,13 +41,15 @@ async function enviarPeticion(){
             window.location.href = "http://localhost:3000/dashboard";
         } else{
             //Mostramos las alertas
-            console.log('mostramos las alertas');
+            alertasContainer = document.querySelector(".alertas-container");
             for (const [key, value] of Object.entries(resultado.alertas)) {
-                console.log(key);
-                console.log(value[0]);
+                alertaMensaje = document.createElement("P");
+                alertaMensaje.classList.add(key);
+                alertaMensaje.classList.add('alerta');
+                alertaMensaje.textContent = value;
+                alertasContainer.appendChild(alertaMensaje);
             };
-            }
-
+        }
     }
     catch (error) {
         console.log(error);
