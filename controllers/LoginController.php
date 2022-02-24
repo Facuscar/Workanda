@@ -34,12 +34,16 @@ class LoginController{
             }
 
             $alertas = Usuario::getAlertas();
-            echo json_encode($alertas);
-        } else{
-            //render a la vista
-            $router->render('auth/login',[
-                'titulo' => 'Inicia sesión'
-            ]);
+            $respuesta = [
+                'alertas' => $alertas
+            ];
+            echo json_encode($respuesta);
+            return;
         }
+            
+        //render a la vista
+        $router->render('auth/login',[
+        'titulo' => 'Inicia sesión'
+        ]);
     }
 }

@@ -23,6 +23,37 @@ async function enviarPeticion(){
     btn.classList.add('not-visible')
     const loading = document.querySelector('.loading');
     loading.classList.add('visible');
+
+    //Enviamos la petición al endpoint
+    try {
+        const url = 'http://localhost:3000';
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: datos
+        });
+        //Recibimos la respuesta
+        const resultado = await respuesta.json();
+        
+        //Validamos si las alertas están vacias
+        console.log(resultado);
+        if(resultado.alertas.length === 0){
+            //No hay alertas, por lo tanto lo llevamos al CRUD
+            window.location.href = "http://localhost:3000/dashboard";
+        } else{
+            //Mostramos las alertas
+            console.log('mostramos las alertas');
+            for (const [key, value] of Object.entries(resultado.alertas)) {
+                console.log(key);
+                console.log(value[0]);
+            };
+            }
+
+    }
+    catch (error) {
+        console.log(error);
+    }
+    loading.classList.remove('visible');
+    btn.classList.remove('not-visible');
 }
 
 })()

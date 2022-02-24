@@ -5,10 +5,12 @@ use Model\Usuario;
 use MVC\Router;
 
 class UsuarioController{
-    public static function login(Router $router){
+    public static function index(Router $router){
 
+        echo "Desde UsuarioController";
+        return;
         //render a la vista
-        $router->render('auth/login',[
+        $router->render('dashboard/index',[
         ]);
     }
 }
