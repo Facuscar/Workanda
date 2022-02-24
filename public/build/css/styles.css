@@ -449,6 +449,31 @@ input{
     border: 1px solid gray;
 }
 
+/* Animacion de carga */
+.not-visible{
+  display: none;
+}
+
+.loading{
+  display: none;
+  padding: 1.4rem;
+}
+
+.loading.visible{
+  display: block;
+  text-align: center;
+  animation: spin 3s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /**HEADER**/
 
 .contenedor-header{
@@ -522,5 +547,6 @@ input{
 
 .error{
   background-color: rgb(255, 160, 160);
-  color: red;
+  text-transform: uppercase;
+  color: #c1012e;
 }

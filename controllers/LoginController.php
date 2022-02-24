@@ -32,14 +32,14 @@ class LoginController{
             } else{
                 Usuario::setAlerta('error', 'La contaseña y el correo no coinciden');
             }
+
+            $alertas = Usuario::getAlertas();
+            echo json_encode($alertas);
+        } else{
+            //render a la vista
+            $router->render('auth/login',[
+                'titulo' => 'Inicia sesión'
+            ]);
         }
-
-        $alertas = Usuario::getAlertas();
-
-        //render a la vista
-        $router->render('auth/login',[
-            'titulo' => 'Inicia sesión',
-            'alertas' => $alertas
-        ]);
     }
 }
