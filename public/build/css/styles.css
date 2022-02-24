@@ -510,3 +510,17 @@ input{
 .acciones{
     width: 60%;
 }
+
+/**ALERTAS**/
+.alerta{
+  margin-bottom: 1rem;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  text-transform: uppercase;
+}
+
+.error{
+  background-color: rgb(255, 160, 160);
+  color: red;
+}
