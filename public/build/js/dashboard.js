@@ -18,7 +18,7 @@
 
         //Enviamos la petición al endpoint
         try {
-            const url = 'http://localhost:3000/dashboard';
+            const url = 'http://localhost:3000/crear-usuario';
             const respuesta = await fetch(url, {
                 method: 'POST',
                 body: datos
@@ -29,7 +29,10 @@
 
         } catch (error) {
             console.log(error);
-        }  
+        }
+        
+        //Finalizamos la animación de carga
+        sacarCarga();
     } 
 
     const btnCrear = document.getElementById('crear-usuario');

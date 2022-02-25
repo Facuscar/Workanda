@@ -25,15 +25,9 @@ class Usuario extends ActiveRecord{
             self::$alertas['error'][] = 'El email es obligatorio';
         }
 
-        if(!$this->password){
-            self::$alertas['error'][] = 'La contraseña no puede ir vacia';
-        }
-
         if(strlen($this->password) < 8){
             self::$alertas['error'][] = 'La contraseña debe tener al menos 8 caracteres';
-        }
-
-        if($this->password !== $this->password2){
+        } else if($this->password !== $this->password2){
             self::$alertas['error'][] = 'Las contraseñas no coinciden';
         }
 
@@ -90,17 +84,17 @@ class Usuario extends ActiveRecord{
 
     //Valida el login del usuario
     public function validarLogin(){
-        if(!$this->email){
-            self::$alertas['error'][] = 'El email es obligatorio';
-        }
 
         if(!$this->password){
             self::$alertas['error'][] = 'La contraseña no puede ir vacia';
         }
 
-        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
+        if(!$this->email){
+            self::$alertas['error'][] = 'El email es obligatorio';
+        }else if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
             self::$alertas['error'][] = 'El formato del email es inválido';
-        }
+
+        }  
 
         return self::$alertas;
     }

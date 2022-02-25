@@ -30,9 +30,9 @@ async function enviarPeticion(){
         });
         //Recibimos la respuesta
         const resultado = await respuesta.json();
-        
+        console.log(resultado);
         //Validamos si las alertas están vacia
-        if(resultado.alertas.length === 0){
+        if(Object.keys(resultado.alertas).length === 0){
             //No hay alertas, por lo tanto lo llevamos al CRUD
             window.location.href = "http://localhost:3000/dashboard";
         } else{
@@ -75,6 +75,8 @@ async function enviarPeticion(){
     }
 
     function sacarCarga(){
+        const btn = document.querySelector('.boton');
+        const loading = document.querySelector('.loading');
         loading.classList.remove('visible');
         btn.classList.remove('not-visible');
     }
