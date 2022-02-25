@@ -12,7 +12,8 @@ class UsuarioController{
         $usuarios = Usuario::all();
         $router->render('dashboard/dashboard',[
             'titulo' => 'Administra usuarios',
-            'usuarios' => $usuarios
+            'usuarios' => $usuarios,
+            'user' => $_SESSION['nombre']
         ]);
     }
 }

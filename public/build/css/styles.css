@@ -573,3 +573,34 @@ input{
   align-items: center;
   flex-direction: column;
 }
+
+.lista-dashboard{
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr;
+}
+
+.lista-dashboard p{
+  margin: 0;
+}
+
+.lista-dashboard li{
+  list-style: none;
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.lista-dashboard li:nth-last-child(-n+4){
+  border-bottom: none;
+}
+
+li.acciones{
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+ a .icon:hover{
+  filter: invert(14%) sepia(99%) saturate(6332%) hue-rotate(342deg) brightness(80%) contrast(103%);
+}
