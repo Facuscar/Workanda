@@ -604,3 +604,66 @@ li.acciones{
  a .icon:hover{
   filter: invert(14%) sepia(99%) saturate(6332%) hue-rotate(342deg) brightness(80%) contrast(103%);
 }
+
+.modal-nuevo{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 0.2s ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 60vw;
+}
+
+@media (max-width: 768px){
+  .modal-nuevo{
+    width: 90vw;
+  }
+}
+
+.modal-nuevo.active{
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header{
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000;
+}
+
+.modal-header .title{
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button{
+  font-size: 1.8rem;  
+}
+
+.modal-body{
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+}
+
+#overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, .5);
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
+}
+
+#overlay.active{
+  opacity: 1;
+  pointer-events: all;
+}
