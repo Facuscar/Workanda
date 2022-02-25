@@ -20,11 +20,11 @@ $router->get('/logout', [LoginController::class, 'logout']);
 
 //Zona de usuarios
 $router->get('/dashboard', [UsuarioController::class, 'index']);
-$router->get('/crear-usuario', [UsuarioController::class, 'crear']);
+
+//Api de usuarios
 $router->post('/crear-usuario', [UsuarioController::class, 'crear']);
-$router->get('/actualizar-usuario', [UsuarioController::class, 'actualizar']);
 $router->post('/actualizar-usuario', [UsuarioController::class, 'actualizar']);
-$router->get('/usuario/eliminar', [UsuarioController::class, 'eliminar']);
+$router->post('/usuario/eliminar', [UsuarioController::class, 'eliminar']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

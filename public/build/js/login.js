@@ -19,10 +19,7 @@ async function enviarPeticion(){
     datos.append('password', password.value);
 
     //Agregamos una animación de carga
-    const btn = document.querySelector('.boton');
-    btn.classList.add('not-visible')
-    const loading = document.querySelector('.loading');
-    loading.classList.add('visible');
+    agregarCarga();
 
     //Enviamos la petición al endpoint
     try {
@@ -46,8 +43,9 @@ async function enviarPeticion(){
     catch (error) {
         console.log(error);
     }
-    loading.classList.remove('visible');
-    btn.classList.remove('not-visible');
+
+    //Finalizamos la animación de carga
+    sacarCarga();
 }
 
     function mostrarAlertas(alertas){
@@ -67,6 +65,18 @@ async function enviarPeticion(){
                 alertasContainer.appendChild(alertaMensaje); 
             });     
         }
+    }
+
+    function agregarCarga(){
+        const btn = document.querySelector('.boton');
+        btn.classList.add('not-visible');
+        const loading = document.querySelector('.loading');
+        loading.classList.add('visible');
+    }
+
+    function sacarCarga(){
+        loading.classList.remove('visible');
+        btn.classList.remove('not-visible');
     }
 
 })()
