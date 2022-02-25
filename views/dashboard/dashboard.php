@@ -1,6 +1,6 @@
 <div class="contenedor contenedor-dashboard">
     <h1>Dashboard de <?php echo $user ?></h1>
-    <button data-modal-target="#nuevo-usuario" class="boton">Nuevo usuario</button>
+    <button data-modal-target="#modal-nuevo" class="boton">Nuevo usuario</button>
     <div class="tabla-dashboard">
         <ul class="lista-dashboard">
             <li class="tts"> <p>ID</p> </li>
@@ -82,5 +82,6 @@
             </div>
     </div>
     <div id="overlay"></div>
-    <?php $script = '<script src="/build/js/dashboard.js"></script>'?> 
+    <?php $script = '<script src="/build/js/dashboard.js"></script>
+                    <script src="/build/js/modal.js"></script>'?> 
 </div>

@@ -5,12 +5,13 @@ const overlay = document.getElementById('overlay');
 openModalButtons.forEach(button =>{
     button.addEventListener('click', () => {
       const modal = document.querySelector(button.dataset.modalTarget);
+      console.log(modal);
       openModal(modal);
     });
 })
 
 overlay.addEventListener('click', () =>{
-    const modals = document.querySelectorAll('.modal.active');
+    const modals = document.querySelectorAll('.modal-nuevo.active');
     modals.forEach(modal => {
     closeModal(modal);
     });
