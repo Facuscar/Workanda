@@ -41,14 +41,7 @@ async function enviarPeticion(){
             window.location.href = "http://localhost:3000/dashboard";
         } else{
             //Mostramos las alertas
-            alertasContainer = document.querySelector(".alertas-container");
-            for (const [key, value] of Object.entries(resultado.alertas)) {
-                alertaMensaje = document.createElement("P");
-                alertaMensaje.classList.add(key);
-                alertaMensaje.classList.add('alerta');
-                alertaMensaje.textContent = value;
-                alertasContainer.appendChild(alertaMensaje);
-            };
+            mostrarAlertas(resultado.alertas);
         }
     }
     catch (error) {
@@ -57,5 +50,24 @@ async function enviarPeticion(){
     loading.classList.remove('visible');
     btn.classList.remove('not-visible');
 }
+
+    function mostrarAlertas(alertas){
+        element = document.querySelectorAll('P');
+            if(element){
+            element.forEach(parrafo =>{
+                parrafo.remove();
+                } )
+            }
+            alertasContainer = document.querySelector(".alertas-container");
+            for (const [key, value] of Object.entries(alertas)) {
+                value.forEach(alerta => {
+                alertaMensaje = document.createElement("P");
+                alertaMensaje.classList.add(key);
+                alertaMensaje.classList.add('alerta');
+                alertaMensaje.textContent = alerta;
+                alertasContainer.appendChild(alertaMensaje); 
+            });     
+        }
+    }
 
 })()
