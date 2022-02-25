@@ -34,8 +34,7 @@ async function enviarPeticion(){
         //Recibimos la respuesta
         const resultado = await respuesta.json();
         
-        //Validamos si las alertas están vacias
-        console.log(resultado);
+        //Validamos si las alertas están vacia
         if(resultado.alertas.length === 0){
             //No hay alertas, por lo tanto lo llevamos al CRUD
             window.location.href = "http://localhost:3000/dashboard";

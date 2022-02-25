@@ -1,3 +1,4 @@
 (() => {
-console.log('Desde el dashboard');
+    const btnCrear = document.getElementById('crear-usuario');
+    console.log(btnCrear);
 })()

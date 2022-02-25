@@ -64,7 +64,7 @@
                 <input type="password2" id="password2" placeholder="Repite la contraseña" name="password2">
             </div>
 
-            <input type="submit" class="boton" value="Crear usuario">
+            <input type="submit" class="boton" id="crear-usuario" value="Crear usuario">
             <div class="loading">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-dashed" width="28" height="28" viewBox="0 0 24 24" stroke-width="2.5" stroke="#a00000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
