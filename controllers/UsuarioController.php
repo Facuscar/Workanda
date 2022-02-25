@@ -23,6 +23,8 @@ class UsuarioController{
 
     public static function crear(){
 
+        $result = null;
+
         if(!isset($_SESSION)){
             session_start();
         }
@@ -51,7 +53,7 @@ class UsuarioController{
                         $usuario->hashPassword();
 
                         //Guardamos el usuario
-                        $usuario->guardar();
+                        $result = $usuario->guardar();
                     }
                 }
 
@@ -59,6 +61,7 @@ class UsuarioController{
 
                 $respuesta = [
                     'alertas' => $alertas,
+                    'resultado' => $result
                 ];
                 echo json_encode($respuesta);
                 return; 
