@@ -7,7 +7,9 @@ use MVC\Router;
 class UsuarioController{
     public static function index(Router $router){
 
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
         isAuth();
 
         //render a la vista
@@ -21,7 +23,9 @@ class UsuarioController{
 
     public static function crear(){
 
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
         
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if(!isset($_SESSION['login'])) {
@@ -37,23 +41,28 @@ class UsuarioController{
                 $alertas = Usuario::getAlertas();
                 if(empty($alertas)){
                     //Buscamos en la DB que no haya ningun usuario con ese mismo email
-                    $usuario = Usuario::where('email', $usuario->email);
+                    $existe = Usuario::where('email', $usuario->email);
 
                     //Si encontramos un usuario, el correo ya está ocupado
-                    if($usuario){
+                    if($existe){
                         Usuario::setAlerta('error', 'El correo ya está en uso');
                     } else{
-                        $result = $usuario->crear();
+                        //Hasheamos el password
+                        $usuario->hashPassword();
+
+                        //Guardamos el usuario
+                        $usuario->guardar();
                     }
                 }
+
+                $alertas = Usuario::getAlertas();
+
                 $respuesta = [
                     'alertas' => $alertas,
-                    'resultado' => $result
                 ];
+                echo json_encode($respuesta);
+                return; 
             }
-
-            echo json_encode($respuesta);
-            return;
         }
     }
 }
