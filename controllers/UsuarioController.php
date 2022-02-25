@@ -9,8 +9,10 @@ class UsuarioController{
         session_start();
         isAuth();
         //render a la vista
+        $usuarios = Usuario::all();
         $router->render('dashboard/dashboard',[
-            'titulo' => 'Administra usuarios'
+            'titulo' => 'Administra usuarios',
+            'usuarios' => $usuarios
         ]);
     }
 }

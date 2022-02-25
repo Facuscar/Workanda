@@ -564,3 +564,12 @@ input{
   color: #c1012e;
   border-left: 6px solid #c1012e;
 }
+
+/* Dashboard */
+.contenedor-dashboard{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
