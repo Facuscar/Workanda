@@ -68,4 +68,13 @@ class UsuarioController{
             }
         }
     }
+
+    public static function actualizar(){
+        $respuesta = [
+            'Datos' => $_POST,
+            'Respuesta' => 'Desde actualizar'
+        ];
+
+        echo json_encode($respuesta);
+    }
 }

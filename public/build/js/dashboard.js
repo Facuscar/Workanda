@@ -1,5 +1,7 @@
 (() => {
     async function enviarPeticion(){
+        const btnCrear = document.getElementById('crear-usuario');
+        //Conseguimos los datos que vamos a enviar a través de la petición
         const email = document.getElementById('email');
         const nombre = document.getElementById('nombre');
         const password = document.getElementById('password');
@@ -13,7 +15,7 @@
         datos.append('password2', password2.value);
 
         //Agregamos una animación de carga
-        agregarCarga();
+        agregarCarga(btnCrear);
 
         //Enviamos la petición al endpoint
         try {
@@ -46,28 +48,86 @@
         }
         
         //Finalizamos la animación de carga
-        sacarCarga();
-
-        
-        
+        sacarCarga(btnCrear);  
     } 
 
+    async function editPeticion(){
+        const btnEdit = document.getElementById('editar-usuario');
+        //Conseguimos los datos que vamos a enviar a través de la petición
+        const email = document.getElementById('email-edit');
+        const nombre = document.getElementById('nombre-edit');
+        const password = document.getElementById('password-edit');
+        const password2 = document.getElementById('password2-edit');
+
+        //Construimos la peticion
+        const datos = new FormData();
+        datos.append('email', email.value);
+        datos.append('nombre', nombre.value);
+        datos.append('password', password.value);
+        datos.append('password2', password2.value);
+
+        //Agregamos una animación de carga
+        agregarCarga(btnEdit);
+
+        //Enviamos la petición al endpoint
+        try {
+            const url = 'http://localhost:3000/actualizar-usuario';
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: datos
+            });
+            //Recibimos la respuesta
+            const resultado = await respuesta.json();
+            console.log(resultado);
+            
+            //Si no hay errores
+           /* if(Object.keys(resultado.alertas).length === 0){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario guardado exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+                  const cerrar = document.querySelectorAll('.active');
+                  cerrar.forEach(element => {
+                    element.classList.remove('active');
+                  });
+
+                  agregarNuevoRegistro(resultado.resultado);
+            } */
+        } catch (error) {
+            console.log(error);
+        }
+        
+        //Finalizamos la animación de carga
+        sacarCarga(btnEdit);
+    }
+
+
+    //Boton de crear, desde donde se hace trigger a la peticion una vez que se llenaron los datos
     const btnCrear = document.getElementById('crear-usuario');
     btnCrear.addEventListener('click', (e) => {
         e.preventDefault();
         enviarPeticion();
     });
 
-    function agregarCarga(){
-        const btn = document.getElementById('crear-usuario');
+
+    //Boton de editar, desde donde se hace trigger a la peticion una vez que se llenaron los datos
+    const btnEdit = document.getElementById('editar-usuario');
+    btnEdit.addEventListener('click', (e) =>{
+        e.preventDefault();
+        editPeticion();
+    });
+
+    function agregarCarga(btn){
         btn.classList.add('not-visible');
-        const loading = document.querySelector('.loading');
+        const loading = btn.nextElementSibling;
         loading.classList.add('visible');
     }
 
-    function sacarCarga(){
-        const btn = document.getElementById('crear-usuario');
-        const loading = document.querySelector('.loading');
+    function sacarCarga(btn){
+        const loading = btn.nextElementSibling;
         loading.classList.remove('visible');
         btn.classList.remove('not-visible');
     }
@@ -112,7 +172,6 @@
         acciones.appendChild(update);
         acciones.appendChild(borrar);
         update.innerHTML = updateIcon;
-        borrar.innerHTML = borrarIcon;
-        
+        borrar.innerHTML = borrarIcon; 
     }
 })()

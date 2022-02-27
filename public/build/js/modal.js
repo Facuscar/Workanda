@@ -4,15 +4,20 @@ const overlay = document.getElementById('overlay');
 
 //La idea es que se puedan crear varios modales, por lo tanto le damos el EventListener a cada uno
 openModalButtons.forEach(button =>{
-    button.addEventListener('click', () => {
-      const modal = document.querySelector(button.dataset.modalTarget);
-      openModal(modal);
+    button.addEventListener('click', (e) => {
+        e.preventDefault();    
+        const modal = document.querySelector(button.dataset.modalTarget);
+        if(button.dataset.modalTarget === '#modal-edit'){
+            console.log('debug');
+            llenarCampos(button);
+        }
+        openModal(modal);
     });
 })
 
 //Si hacemos click en el overlay (cuando se encuentra activo) cerramos el modal
 overlay.addEventListener('click', () =>{
-    const modals = document.querySelectorAll('.modal-nuevo.active');
+    const modals = document.querySelectorAll('.modal.active');
     modals.forEach(modal => {
     closeModal(modal);
     });
@@ -22,7 +27,7 @@ overlay.addEventListener('click', () =>{
 //Le damos el EventListener a cada boton cerrar de cada modal
 closeModalButtons.forEach(button =>{
     button.addEventListener('click', () => {
-      const modal = button.closest('.modal-nuevo')
+      const modal = button.closest('.modal')
       closeModal(modal);
     });
 })
@@ -40,4 +45,19 @@ function closeModal(modal){
     if(modal == null) return
     modal.classList.remove('active')
     overlay.classList.remove('active');
+}
+
+function llenarCampos(btn){
+
+    //Vamos a recorrer el HTML para conseguir el resto de los elementos en la tabla y ponerlos en el formulario
+    const email = btn.parentElement.previousElementSibling.lastElementChild.innerText;
+    const nombre = btn.parentElement.previousElementSibling.previousElementSibling.lastElementChild.innerText;
+
+    //Obtenemos los contenedores de cada elemento
+    const emailP = document.getElementById('email-edit');
+    const nombreP = document.getElementById('nombre-edit');
+
+    //Ponemos los valores dentro del formulario
+    emailP.value = email;
+    nombreP.value = nombre;
 }

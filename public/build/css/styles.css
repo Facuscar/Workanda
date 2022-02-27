@@ -605,7 +605,7 @@ li.acciones{
   filter: invert(14%) sepia(99%) saturate(6332%) hue-rotate(342deg) brightness(80%) contrast(103%);
 }
 
-.modal-nuevo{
+.modal{
   position: fixed;
   top: 50%;
   left: 50%;
@@ -619,12 +619,12 @@ li.acciones{
 }
 
 @media (max-width: 768px){
-  .modal-nuevo{
+  .modal{
     width: 90vw;
   }
 }
 
-.modal-nuevo.active{
+.modal.active{
   transform: translate(-50%, -50%) scale(1);
 }
 
