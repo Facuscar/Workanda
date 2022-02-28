@@ -58,6 +58,7 @@
         const nombre = document.getElementById('nombre-edit');
         const password = document.getElementById('password-edit');
         const password2 = document.getElementById('password2-edit');
+        const id = document.getElementById('id-edit');
 
         //Construimos la peticion
         const datos = new FormData();
@@ -65,6 +66,7 @@
         datos.append('nombre', nombre.value);
         datos.append('password', password.value);
         datos.append('password2', password2.value);
+        datos.append('id',id.value);
 
         //Agregamos una animación de carga
         agregarCarga(btnEdit);
@@ -81,10 +83,10 @@
             console.log(resultado);
             
             //Si no hay errores
-           /* if(Object.keys(resultado.alertas).length === 0){
+            if(resultado.resultado){
                 Swal.fire({
                     icon: 'success',
-                    title: 'Usuario guardado exitosamente',
+                    title: 'Usuario editado exitosamente',
                     showConfirmButton: false,
                     timer: 1500
                   })
@@ -94,8 +96,8 @@
                     element.classList.remove('active');
                   });
 
-                  agregarNuevoRegistro(resultado.resultado);
-            } */
+                  editarRegistro(id.value, email.value, nombre.value);
+            } 
         } catch (error) {
             console.log(error);
         }
@@ -173,5 +175,13 @@
         acciones.appendChild(borrar);
         update.innerHTML = updateIcon;
         borrar.innerHTML = borrarIcon; 
+    }
+
+    function editarRegistro(id, email, nombre){
+        const edit = document.querySelector(`[data-id = '${id}']`);
+        const emailContainer = edit.parentElement.previousElementSibling.lastElementChild;
+        emailContainer.innerText = email; 
+        const nombreContainer = edit.parentElement.previousElementSibling.previousElementSibling.lastElementChild;
+        nombreContainer.innerText = nombre;
     }
 })()

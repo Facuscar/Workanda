@@ -109,6 +109,11 @@
                 <input type="password" id="password2-edit" placeholder="Repite la contraseña" name="password2">
             </div>
 
+            <div class="campo not-visible">
+            <label for="id-edit">Id:</label>
+                <input type="text" id="id-edit" placeholder="Id" name="id">
+            </div>
+
             <input type="submit" class="boton" id="editar-usuario" value="Editar usuario">
             <div class="loading">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-dashed" width="28" height="28" viewBox="0 0 24 24" stroke-width="2.5" stroke="#a00000" fill="none" stroke-linecap="round" stroke-linejoin="round">

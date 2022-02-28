@@ -70,11 +70,50 @@ class UsuarioController{
     }
 
     public static function actualizar(){
-        $respuesta = [
-            'Datos' => $_POST,
-            'Respuesta' => 'Desde actualizar'
-        ];
 
-        echo json_encode($respuesta);
+        $result = null;
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if(!isset($_SESSION['login'])){
+                $respuesta = [
+                    'respuesta' => 'access denied'
+                ];
+            } else{
+                $usuario = new Usuario($_POST);
+                //Validamos los datos editados
+                $usuario->validarNuevaCuenta();
+    
+    
+                $alertas = Usuario::getAlertas();
+                
+                if(empty($alertas)){
+                    //Buscamos en la DB el usuario con el ID
+                    $existe = $usuario->find($usuario->id);
+
+                    if(!$existe){
+                        Usuario::setAlerta('error', 'Usuario no encontrado');
+                    } else{
+                        //Hasheamos el password
+                        $usuario->hashPassword();
+    
+                        //Guardamos los cambios
+                        $result = $usuario->guardar();
+                    }
+                }
+                $alertas = Usuario::getAlertas();
+    
+                $respuesta = [
+                    'alertas' => $alertas,
+                    'resultado' => $result
+                ];
+                
+                echo json_encode($respuesta);
+                return; 
+            }
+        } 
     }
 }

@@ -8,7 +8,6 @@ openModalButtons.forEach(button =>{
         e.preventDefault();    
         const modal = document.querySelector(button.dataset.modalTarget);
         if(button.dataset.modalTarget === '#modal-edit'){
-            console.log('debug');
             llenarCampos(button);
         }
         openModal(modal);
@@ -49,6 +48,8 @@ function closeModal(modal){
 
 function llenarCampos(btn){
 
+    console.log(btn.dataset.id);
+
     //Vamos a recorrer el HTML para conseguir el resto de los elementos en la tabla y ponerlos en el formulario
     const email = btn.parentElement.previousElementSibling.lastElementChild.innerText;
     const nombre = btn.parentElement.previousElementSibling.previousElementSibling.lastElementChild.innerText;
@@ -56,8 +57,10 @@ function llenarCampos(btn){
     //Obtenemos los contenedores de cada elemento
     const emailP = document.getElementById('email-edit');
     const nombreP = document.getElementById('nombre-edit');
+    const editP = document.getElementById('id-edit');
 
     //Ponemos los valores dentro del formulario
     emailP.value = email;
     nombreP.value = nombre;
+    editP.value = btn.dataset.id;
 }
