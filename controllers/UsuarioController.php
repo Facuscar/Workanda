@@ -116,4 +116,32 @@ class UsuarioController{
             }
         } 
     }
+
+    public static function eliminar(){
+        $result = null;
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if(!isset($_SESSION['login'])){
+                $respuesta = [
+                    'respuesta' => 'access denied'
+                ];
+            } else{
+                $usuario = new Usuario($_POST);
+                $existe =  $usuario->find($_POST['id']);
+                if($existe){
+                   $result = $usuario->eliminar();
+                } else{
+                    $result = false;
+                }
+                $respuesta = [
+                    'resultado' => $result,
+                    'id' => $usuario->id
+                ];
+                echo json_encode($respuesta);
+            }
+        }
+    }
 }

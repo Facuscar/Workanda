@@ -36,7 +36,7 @@ class LoginController{
                     $_SESSION['email']  = $usuario->email;
                     $_SESSION['login']  = true;
                 }else {
-                    Usuario::setAlerta('error', 'Las contraseña y el email no coincide');
+                    Usuario::setAlerta('error', 'La contraseña y el email no coinciden');
                 }
 
                 $alertas = Usuario::getAlertas(); 

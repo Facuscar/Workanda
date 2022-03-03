@@ -24,7 +24,7 @@ $router->get('/dashboard', [UsuarioController::class, 'index']);
 //Api de usuarios
 $router->post('/crear-usuario', [UsuarioController::class, 'crear']);
 $router->post('/actualizar-usuario', [UsuarioController::class, 'actualizar']);
-$router->post('/usuario/eliminar', [UsuarioController::class, 'eliminar']);
+$router->post('/eliminar-usuario', [UsuarioController::class, 'eliminar']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

@@ -1,4 +1,78 @@
 (() => {
+    /*  MODALES  */
+    const openModalButtons = document.querySelectorAll('[data-modal-target]');
+    const closeModalButtons = document.querySelectorAll('[data-close-button]');
+    const overlay = document.getElementById('overlay');
+
+    //La idea es que se puedan crear varios modales, por lo tanto le damos el EventListener a cada uno
+    openModalButtons.forEach(button =>{
+        button.addEventListener('click', (e) => {
+            e.preventDefault();    
+            const modal = document.querySelector(button.dataset.modalTarget);
+            if(button.dataset.modalTarget === '#modal-edit'){
+                llenarCampos(button);
+            }
+            openModal(modal);
+        });
+    })
+
+    //Si hacemos click en el overlay (cuando se encuentra activo) cerramos el modal
+    overlay.addEventListener('click', () =>{
+        const modals = document.querySelectorAll('.modal.active');
+        modals.forEach(modal => {
+        closeModal(modal);
+        });
+    });
+
+
+    //Le damos el EventListener a cada boton cerrar de cada modal
+    closeModalButtons.forEach(button =>{
+        button.addEventListener('click', () => {
+        const modal = button.closest('.modal')
+        closeModal(modal);
+        });
+    })
+
+
+    //Funcion que abre el modal
+    function openModal(modal){
+        if(modal == null) return
+        modal.classList.add('active')
+        overlay.classList.add('active');
+    }
+
+    //Funcion que cierra el modal
+    function closeModal(modal){
+        if(modal == null) return
+        modal.classList.remove('active')
+        overlay.classList.remove('active');
+    }
+
+    function llenarCampos(btn){
+
+        console.log(btn.dataset.id);
+
+        //Vamos a recorrer el HTML para conseguir el resto de los elementos en la tabla y ponerlos en el formulario
+        const email = btn.parentElement.previousElementSibling.lastElementChild.innerText;
+        const nombre = btn.parentElement.previousElementSibling.previousElementSibling.lastElementChild.innerText;
+
+        //Obtenemos los contenedores de cada elemento
+        const emailP = document.getElementById('email-edit');
+        const nombreP = document.getElementById('nombre-edit');
+        const editP = document.getElementById('id-edit');
+
+        //Ponemos los valores dentro del formulario
+        emailP.value = email;
+        nombreP.value = nombre;
+        editP.value = btn.dataset.id;
+    }
+    
+    
+    
+    
+    
+    /* DASHBOARD */   
+    
     async function enviarPeticion(){
         const btnCrear = document.getElementById('crear-usuario');
         //Conseguimos los datos que vamos a enviar a través de la petición
@@ -97,13 +171,57 @@
                   });
 
                   editarRegistro(id.value, email.value, nombre.value);
-            } 
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    title: `Ups! Hubo un error`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  }) 
+            }  
         } catch (error) {
             console.log(error);
         }
         
         //Finalizamos la animación de carga
         sacarCarga(btnEdit);
+    }
+
+    async function deletePeticion(id){
+        const datos = new FormData();
+        datos.append('id', id);
+
+        //Enviamos la petición al endpoint
+        try {
+            const url = 'http://localhost:3000/eliminar-usuario';
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: datos
+            });
+
+            //Recibimos la respuesta
+            const resultado = await respuesta.json();
+            console.log(resultado);
+            
+            //Si no hay errores
+            if(resultado.resultado){
+                Swal.fire({
+                    icon: 'success',
+                    title: `Usuario ${id} eliminado exitosamente`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    title: `Ups! Hubo un error`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  }) ;
+            } 
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -120,6 +238,28 @@
     btnEdit.addEventListener('click', (e) =>{
         e.preventDefault();
         editPeticion();
+    });
+
+    const btnDelete = document.querySelectorAll('#delete');
+    btnDelete.forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            const id = btn.dataset.id;
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No podras revertir este cambio!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si, eliminalo!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    deletePeticion(id);
+                }
+              });
+           
+        });
     });
 
     function agregarCarga(btn){
@@ -174,7 +314,39 @@
         acciones.appendChild(update);
         acciones.appendChild(borrar);
         update.innerHTML = updateIcon;
-        borrar.innerHTML = borrarIcon; 
+        borrar.innerHTML = borrarIcon;
+        
+        //Agregamos los dataset
+        update.setAttribute('data-modal-target','#modal-edit');
+        update.setAttribute('data-id',userId.id);
+
+        //El event listener para que abra el modal
+        update.addEventListener('click', (e) => {
+            e.preventDefault();    
+            const modal = document.querySelector(update.dataset.modalTarget);
+            if(update.dataset.modalTarget === '#modal-edit'){
+                llenarCampos(update);
+            }
+            openModal(modal);
+        });
+
+        //El event listener para que se pueda eliminar
+        borrar.addEventListener('click', e => {
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No podras revertir este cambio!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si, eliminalo!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    deletePeticion(userId.id);
+                }
+              });  
+        });
     }
 
     function editarRegistro(id, email, nombre){
