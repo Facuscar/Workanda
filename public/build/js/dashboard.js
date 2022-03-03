@@ -351,6 +351,8 @@
     }
 
     function editarRegistro(id, email, nombre){
+
+        //Editamos la data de los registros para que se actualice en tiempo real
         const edit = document.querySelector(`[data-id = '${id}']`);
         const emailContainer = edit.parentElement.previousElementSibling.lastElementChild;
         emailContainer.innerText = email; 
@@ -359,6 +361,8 @@
     }
 
     function eliminarRegistro(id){
+
+        //Eliminamos el registro de la lista para que se actualice en tiempo real
         const edit = document.querySelector(`[data-id='${id}']`)
         const accionesContainer = edit.parentElement;
         const emailContainer = accionesContainer.previousElementSibling;
