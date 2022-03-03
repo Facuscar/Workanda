@@ -668,3 +668,7 @@ li.acciones{
   opacity: 1;
   pointer-events: all;
 }
+
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}

@@ -211,6 +211,7 @@
                     showConfirmButton: false,
                     timer: 1500
                   });
+                eliminarRegistro(id);
             }else {
                 Swal.fire({
                     icon: 'error',
@@ -355,5 +356,17 @@
         emailContainer.innerText = email; 
         const nombreContainer = edit.parentElement.previousElementSibling.previousElementSibling.lastElementChild;
         nombreContainer.innerText = nombre;
+    }
+
+    function eliminarRegistro(id){
+        const edit = document.querySelector(`[data-id='${id}']`)
+        const accionesContainer = edit.parentElement;
+        const emailContainer = accionesContainer.previousElementSibling;
+        const nombreContainer = emailContainer.previousElementSibling;
+        const idContainer = nombreContainer.previousElementSibling;
+        accionesContainer.parentElement.removeChild(accionesContainer);
+        emailContainer.parentElement.removeChild(emailContainer);
+        nombreContainer.parentElement.removeChild(nombreContainer);
+        idContainer.parentElement.removeChild(idContainer);
     }
 })()
