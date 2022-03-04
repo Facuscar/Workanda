@@ -102,7 +102,7 @@
             const resultado = await respuesta.json();
             
             //Si no hay errores
-            if(Object.keys(resultado.alertas).length === 0){
+            if(resultado.resultado){
                 Swal.fire({
                     icon: 'success',
                     title: 'Usuario guardado exitosamente',
@@ -116,7 +116,14 @@
                   });
 
                   agregarNuevoRegistro(resultado.resultado);
-            }
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    title: `Ups! Hubo un error`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  }) ;
+            } 
         } catch (error) {
             console.log(error);
         }
