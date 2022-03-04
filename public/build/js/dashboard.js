@@ -93,7 +93,7 @@
 
         //Enviamos la petición al endpoint
         try {
-            const url = 'http://localhost:3000/crear-usuario';
+            const url = 'https://obscure-mesa-25769.herokuapp.com/crear-usuario';
             const respuesta = await fetch(url, {
                 method: 'POST',
                 body: datos
@@ -147,7 +147,7 @@
 
         //Enviamos la petición al endpoint
         try {
-            const url = 'http://localhost:3000/actualizar-usuario';
+            const url = 'https://obscure-mesa-25769.herokuapp.com/actualizar-usuario';
             const respuesta = await fetch(url, {
                 method: 'POST',
                 body: datos
@@ -193,7 +193,7 @@
 
         //Enviamos la petición al endpoint
         try {
-            const url = 'http://localhost:3000/eliminar-usuario';
+            const url = 'https://obscure-mesa-25769.herokuapp.com/eliminar-usuario';
             const respuesta = await fetch(url, {
                 method: 'POST',
                 body: datos
