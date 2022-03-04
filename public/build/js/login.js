@@ -23,7 +23,7 @@ async function enviarPeticion(){
 
     //Enviamos la petición al endpoint
     try {
-        const url = 'https://obscure-mesa-25769.herokuapp.com';
+        const url = 'http://localhost:3000/';
         const respuesta = await fetch(url, {
             method: 'POST',
             body: datos
@@ -34,7 +34,7 @@ async function enviarPeticion(){
         //Validamos si las alertas están vacia
         if(Object.keys(resultado.alertas).length === 0){
             //No hay alertas, por lo tanto lo llevamos al CRUD
-            window.location.href = "https://obscure-mesa-25769.herokuapp.com/dashboard";
+            window.location.href = "http://localhost:3000/dashboard";
         } else{
             //Mostramos las alertas
             mostrarAlertas(resultado.alertas);
